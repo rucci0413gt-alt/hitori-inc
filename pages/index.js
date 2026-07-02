@@ -31,6 +31,7 @@ export default function Home() {
     'リサーチ担当': { bg: '#0F1F3D', border: '#1E3A6E', label: '#5B9BFF' },
     '戦略担当': { bg: '#1F1A3D', border: '#3A2E6E', label: '#A78BFF' },
     'レビュー担当': { bg: '#1F0F0F', border: '#5A2E2E', label: '#FF8B7A' },
+    '会議': { bg: '#1A1F0F', border: '#4A5A2E', label: '#C4E17F' },
   };
 
   return (
@@ -57,13 +58,14 @@ export default function Home() {
           <div className="loading">
             <div className="spinner"></div>
             <p className="loading-text">AI社員たちがリサーチ・議論しています...</p>
-            <p className="loading-sub">30秒〜1分ほどかかります</p>
+            <p className="loading-sub">合意に至るまで最大3ラウンド、1〜2分ほどかかります</p>
           </div>
         )}
 
         {result && (
           <div className="result">
             <p className="theme-label">📋 議題：{result.theme}</p>
+            <p className="rounds-label">🔄 議論ラウンド：{result.rounds}回 / {result.approved ? '正式承認' : '暫定採用'}</p>
 
             <div className="log-list">
               {result.log.map((item, i) => {
@@ -78,9 +80,10 @@ export default function Home() {
             </div>
 
             <div className="conclusion-card">
-              <p className="conclusion-label">✅ 最終結論</p>
+              <p className="conclusion-label">{result.approved ? '✅ 正式結論' : '⚠️ 暫定結論'}</p>
               <p className="conclusion-item"><strong>推奨ジャンル：</strong>{result.strategy.recommendation}</p>
-              <p className="conclusion-item"><strong>判定：</strong>{result.review.verdict}</p>
+              <p className="conclusion-item"><strong>理由：</strong>{result.strategy.reason}</p>
+              <p className="conclusion-item"><strong>最終判定：</strong>{result.review.verdict}</p>
             </div>
           </div>
         )}
@@ -102,7 +105,8 @@ export default function Home() {
         .loading-text { margin-top: 20px; font-size: 15px; }
         .loading-sub { color: #666; font-size: 13px; margin-top: 6px; }
         .result { max-width: 640px; margin: 0 auto; padding-bottom: 60px; }
-        .theme-label { font-size: 14px; color: #999; margin: 0 0 24px; text-align: center; }
+        .theme-label { font-size: 14px; color: #999; margin: 0 0 8px; text-align: center; }
+        .rounds-label { font-size: 13px; color: #999; margin: 0 0 20px; text-align: center; }
         .log-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
         .log-item { border-radius: 12px; padding: 16px; }
         .log-role { font-size: 12px; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.05em; }
@@ -115,4 +119,3 @@ export default function Home() {
     </>
   );
 }
-
