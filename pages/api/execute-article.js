@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       `https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch?` +
       new URLSearchParams({
         appid: process.env.YAHOO_APP_ID,
-        query: keyword,
+        query: simpleKeyword,
         results: 5,
         sort: '-score',
       })
